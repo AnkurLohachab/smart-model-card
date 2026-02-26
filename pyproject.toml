@@ -1,0 +1,125 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "smart-model-card"
+version = "3.0.0"
+description = "A Python library for creating structured, standardized model cards for medical AI systems with OMOP CDM integration and multi-format export."
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Ankur Lohachab", email = "ankur.lohachab@maastrichtuniversity.nl"}
+]
+maintainers = [
+    {name = "Ankur Lohachab", email = "ankur.lohachab@maastrichtuniversity.nl"}
+]
+keywords = [
+    "model-card",
+    "OMOP",
+    "CDM",
+    "healthcare",
+    "machine-learning",
+    "clinical-ai",
+    "documentation",
+    "transparency",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Healthcare Industry",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Documentation",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+
+dependencies = [
+    "requests>=2.25.0",
+]
+
+[project.optional-dependencies]
+omop = [
+    "smart-omop>=0.1.0",
+    "matplotlib>=3.3.0",
+]
+viz = [
+    "matplotlib>=3.3.0",
+]
+validation = [
+    "jsonschema>=3.2.0",
+]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov>=3.0",
+    "black>=21.0",
+    "flake8>=3.9",
+    "mypy>=0.900",
+    "jsonschema>=3.2.0",
+]
+all = [
+    "smart-model-card[omop,viz,validation,dev]",
+]
+
+[project.urls]
+Homepage = "https://github.com/ankurlohachab/smart-model-card"
+Documentation = "https://github.com/ankurlohachab/smart-model-card#readme"
+Repository = "https://github.com/ankurlohachab/smart-model-card.git"
+Issues = "https://github.com/ankurlohachab/smart-model-card/issues"
+Changelog = "https://github.com/ankurlohachab/smart-model-card/releases"
+
+[project.scripts]
+smart-model-card = "smart_model_card.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+smart_model_card = ["*.py"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = "-v --tb=short"
+markers = [
+    "slow: marks tests that require network access or long computation",
+    "omop: marks tests that require OMOP CDM connectivity",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py38", "py39", "py310", "py311", "py312"]
+include = '\.pyi?$'
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.coverage.run]
+source = ["smart_model_card"]
+omit = ["tests/*", "venv/*"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 80
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.",
+    "if TYPE_CHECKING:",
+]
