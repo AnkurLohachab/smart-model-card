@@ -1,5 +1,7 @@
 # SMART Model Card
 
+[![DOI](https://zenodo.org/badge/1168315443.svg)](https://doi.org/10.5281/zenodo.20784772)
+
 A Python package for creating structured model cards (documentation) for medical AI models. Fills in a 7-section template, exports to JSON/HTML/Markdown, and can pull dataset info from OMOP CDM sources.
 
 ## What This Package Does
